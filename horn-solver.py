@@ -19,42 +19,46 @@ def read_dimacs(file_path):
 
     return num_vars, clauses
 
-
-
 def horn_sat(formula):
-    """
-    Determina si una fórmula en formato DIMACS es satisfacible con Horn-SAT.
-
-    Args:
-        formula: Una lista de cláusulas, donde cada cláusula es una lista de literales.
-
-    Returns:
-        True si la fórmula es satisfacible, False en caso contrario.
-    """
-
     G = nx.DiGraph()
     for clause in formula:
         positive_literals = [lit for lit in clause if lit > 0]
         negative_literals = [lit for lit in clause if lit < 0]
         if len(positive_literals) > 1:
-            return False
+            return False, {}  # No es una cláusula de Horn
         if positive_literals:
             G.add_edges_from([(abs(neg_lit), pos_lit) for neg_lit in negative_literals for pos_lit in positive_literals])
 
     try:
         nx.find_cycle(G)
-        return False  # Si hay un ciclo, la fórmula no es satisfacible
+        return False, {}  
     except nx.NetworkXNoCycle:
-        return True
+        # Si no hay ciclo, se puede construir una asignación satisfactoria
+        assignment = {}
+        for clause in formula:
+            positive_literals = [lit for lit in clause if lit > 0]
+            negative_literals = [lit for lit in clause if lit < 0]
+            if positive_literals:
+                pos_lit = positive_literals[0]
+                assignment[pos_lit] = 1  
+                for neg_lit in negative_literals:
+                    assignment[abs(neg_lit)] = 0  
 
-# Ejemplo de uso:
-formula = [[1, -2], [-1, 3], [-2, -3], [-1, -2, -3]]
-#formula = [[-1, 3], [-2, 3], [-3, 4], [-4]]
-#formula = [[1, 2], [-1], [-2]]
-file_path = "input3.dimacs"  # Cambia esto al nombre de tu archivo DIMACS
+        # Asegurarse de que todos los literales no asignados tengan un valor
+        for clause in formula:
+            for lit in clause:
+                if abs(lit) not in assignment:
+                    assignment[abs(lit)] = 1 if lit > 0 else 0  
+
+        return True, assignment
+
+file_path = "input3.dimacs"
 num_vars, clauses = read_dimacs(file_path)
 
-if horn_sat(formula):
+satisfacible, asignacion = horn_sat(clauses)
+
+if satisfacible:
     print("La fórmula es satisfacible.")
+    print("Asignación de literales:", asignacion)
 else:
     print("La fórmula no es satisfacible.")
