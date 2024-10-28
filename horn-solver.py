@@ -1,4 +1,5 @@
 import networkx as nx
+import time
 
 def read_dimacs(file_path):
     clauses = []
@@ -52,9 +53,10 @@ def horn_sat(formula):
 
         return True, assignment
 
-file_path = "input3.dimacs"
+file_path = "input4.dimacs"
 num_vars, clauses = read_dimacs(file_path)
 
+start_time = time.time()
 satisfacible, asignacion = horn_sat(clauses)
 
 if satisfacible:
@@ -62,3 +64,7 @@ if satisfacible:
     print("Asignación de literales:", asignacion)
 else:
     print("La fórmula no es satisfacible.")
+
+end_time = time.time()
+duration = end_time - start_time
+print('duration: ', duration)
