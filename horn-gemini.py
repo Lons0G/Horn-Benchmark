@@ -54,6 +54,7 @@ formula = [[1, -2], [-1, 3], [-2, -3], [-1, -2, -3]]
 file_path = "input3.dimacs"  # Cambia esto al nombre de tu archivo DIMACS
 num_vars, clauses = read_dimacs(file_path)
 
+
 if horn_sat(formula):
     print("La fórmula es satisfacible.")
 else:
