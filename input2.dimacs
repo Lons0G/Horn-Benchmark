@@ -1,7 +1,0 @@
-
-c Este es un ejemplo de un problema de Horn que es satisfacible
-p cnf 4 4
--1 3 0
--2 3 0
--3 4 0
--4 0

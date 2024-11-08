@@ -1,10 +1,7 @@
-import networkx as nx
-import time
-
 def read_dimacs(file_path):
     clauses = []
     num_vars = 0
-
+    BF = []
     with open(file_path, 'r') as file:
         for line in file:
             line = line.strip()
@@ -20,51 +17,7 @@ def read_dimacs(file_path):
 
     return num_vars, clauses
 
-def horn_sat(formula):
-    G = nx.DiGraph()
-    for clause in formula:
-        positive_literals = [lit for lit in clause if lit > 0]
-        negative_literals = [lit for lit in clause if lit < 0]
-        if len(positive_literals) > 1:
-            return False, {}  # No es una cláusula de Horn
-        if positive_literals:
-            G.add_edges_from([(abs(neg_lit), pos_lit) for neg_lit in negative_literals for pos_lit in positive_literals])
-
-    try:
-        nx.find_cycle(G)
-        return False, {}  
-    except nx.NetworkXNoCycle:
-        # Si no hay ciclo, se puede construir una asignación satisfactoria
-        assignment = {}
-        for clause in formula:
-            positive_literals = [lit for lit in clause if lit > 0]
-            negative_literals = [lit for lit in clause if lit < 0]
-            if positive_literals:
-                pos_lit = positive_literals[0]
-                assignment[pos_lit] = 1  
-                for neg_lit in negative_literals:
-                    assignment[abs(neg_lit)] = 0  
-
-        # Asegurarse de que todos los literales no asignados tengan un valor
-        for clause in formula:
-            for lit in clause:
-                if abs(lit) not in assignment:
-                    assignment[abs(lit)] = 1 if lit > 0 else 0  
-
-        return True, assignment
-
-file_path = "input4.dimacs"
+file_path = "input4.dimacs"  
 num_vars, clauses = read_dimacs(file_path)
+print(clauses)
 
-start_time = time.time()
-satisfacible, asignacion = horn_sat(clauses)
-
-if satisfacible:
-    print("La fórmula es satisfacible.")
-    print("Asignación de literales:", asignacion)
-else:
-    print("La fórmula no es satisfacible.")
-
-end_time = time.time()
-duration = end_time - start_time
-print('duration: ', duration)
