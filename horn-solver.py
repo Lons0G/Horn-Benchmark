@@ -40,6 +40,7 @@ while BF != [] and yes != 1:
     p = BF.pop(0)
     print('p = ', p)
 
+    print('Base de Hechos: ', BF)
     if p < 0:
         p = abs(p)
 
@@ -59,12 +60,14 @@ while BF != [] and yes != 1:
         print('body despues: ', body)
         if body == []:
             print('Clausula vacia')
-            print('{} =? {}'.format(head, Q)) 
+            print('head: {} es Q: {}?'.format(head, Q)) 
             if head == abs(Q[0]):
                 yes = 1
+            clauses.remove(clauses[i])
             BF.append(head)
+            print('BF actualizada: ', BF)
         print('-------------------')
-        print(clauses)
+        print('clausulas: ', clauses)
 if yes == 0:
     print("La fórmula es satisfacible.")
 else:
