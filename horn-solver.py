@@ -21,54 +21,74 @@ def read_dimacs(file_path):
                     else:
                         clauses.append(clause)
 
-    return num_vars, clauses, BF, Q
+
+    BR = {} 
+    for i, sublist in enumerate(clauses):
+        for element in sublist:
+            if element < 0:
+                clave = abs(element)
+                if clave not in BR:
+                    BR[clave] = [i]
+                else:
+                    BR[clave].append(i)
+
+    return num_vars, clauses, BF, BR, Q
+
+
+
+def horn_sat(BF, BR, Q):
+    print('Ciclo BF != 0')
+    while BF != []:
+        print('-------------------')
+        p = BF.pop(0)
+        print('p = ', p)
+        print('Base de Hechos: ', BF)
+        print('Ciclo p e Body')
+
+        while p not in BR:
+            print('La literal no aplica: ', p)
+            p = BF.pop(0)
+            print('Nueva p: ', p)
+
+        for lp in BR[p]:
+            print('indice: ', lp)
+            head = clauses[lp][0]
+            body = clauses[lp][1:]
+            print('head: ', head)
+            print('body: ', body)
+            print('body antes: ', body)
+            print('regla antes: ', clauses[lp])
+            clauses[lp].remove(-p)
+            body.remove(-p)
+            print('body despues: ', body)
+            print('regla despues: ', clauses[lp])
+            print('body despues: ', body)
+            if body == []:
+                print('Clausula vacia')
+                print('head: {} es Q: {}?'.format(head, abs(Q[0]))) 
+                if head == abs(Q[0]):
+                    return 1
+                clauses[lp] = []
+                BF.append(head)
+                print('BF actualizada: ', BF)
+            
+
+            print('Clausulas: ', clauses)
+            print('Base de Reglas : ', BR)
+            print('-------------------')
+            print('-------------------')
 
 
 
 print('Inicializacion')
 
 file_path = "input4.dimacs"  
-num_vars, clauses, BF, Q = read_dimacs(file_path)
+num_vars, clauses, BF, BR, Q = read_dimacs(file_path)
 yes = 0
 print('clausulas: ', clauses)
 print('Base de Hechos: ', BF)
 print('Query: ', Q)
-
-print('Ciclo BF != 0')
-while BF != [] and yes != 1:
-    print('-------------------')
-    p = BF.pop(0)
-    print('p = ', p)
-
-    print('Base de Hechos: ', BF)
-    if p < 0:
-        p = abs(p)
-
-    print('Ciclo p e Body')
-    for i, c in enumerate(clauses):
-        head = clauses[i][0]
-        body = clauses[i][1:]
-        print('head: ', head)
-        print('body: ', body)
-        print('body antes: ', body)
-        if p in body:
-            body.remove(p)
-            clauses[i].remove(p)
-        elif -p in body:
-            body.remove(-p)
-            clauses[i].remove(-p)
-        print('body despues: ', body)
-        if body == []:
-            print('Clausula vacia')
-            print('head: {} es Q: {}?'.format(head, Q)) 
-            if head == abs(Q[0]):
-                yes = 1
-            clauses.remove(clauses[i])
-            BF.append(head)
-            print('BF actualizada: ', BF)
-        print('-------------------')
-        print('clausulas: ', clauses)
-if yes == 0:
-    print("La fórmula es satisfacible.")
+if horn_sat(BF, BR, Q):
+    print("La fórmula no essatisfacible.")
 else:
-    print("La fórmula no es satisfacible.")
+    print("La fórmula es satisfacible.")
