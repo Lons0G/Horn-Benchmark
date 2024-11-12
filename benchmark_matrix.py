@@ -12,7 +12,8 @@ def generar_benchamark_incremental(n, m, output):
         for i in range(1, n + 1):
             for j in range(2, m + 2):
                 print('{} {}'.format(sum, -(sum - 1)))
-                sum += 1 
+                sum += 1
+            sum += 1
     sys.stdout = sys.__stdout__
 
 n = 5
