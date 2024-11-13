@@ -31,7 +31,12 @@ def read_dimacs(file_path):
                     BR[clave] = [i]
                 else:
                     BR[clave].append(i)
+    
 
+    for i in BF:
+        if i not in BR:
+            print(i)
+            BR[i] = []
     return num_vars, clauses, BF, BR, Q
 
 
@@ -45,10 +50,10 @@ def horn_sat(BF, BR, Q):
         print('Base de Hechos: ', BF)
         print('Ciclo p e Body')
 
-        while p not in BR:
-            print('La literal no aplica: ', p)
-            p = BF.pop(0)
-            print('Nueva p: ', p)
+        #while p not in BR:
+        #    print('La literal no aplica: ', p)
+        #    p = BF.pop(0)
+        #    print('Nueva p: ', p)
 
         for lp in BR[p]:
             print('indice: ', lp)
@@ -87,6 +92,7 @@ num_vars, clauses, BF, BR, Q = read_dimacs(file_path)
 yes = 0
 print('clausulas: ', clauses)
 print('Base de Hechos: ', BF)
+print('Base de Reglas: ', BR)
 print('Query: ', Q)
 if horn_sat(BF, BR, Q):
     print("La fórmula no essatisfacible.")
