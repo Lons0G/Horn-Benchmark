@@ -24,6 +24,7 @@ def read_dimacs(file_path):
 
     BR = {} 
     for i, sublist in enumerate(clauses):
+        print(sublist)
         for element in sublist:
             if element < 0:
                 clave = abs(element)
@@ -37,6 +38,10 @@ def read_dimacs(file_path):
         if i not in BR:
             print(i)
             BR[i] = []
+
+    for i, sublist in enumerate(clauses):
+        if sublist[0] not in BR:
+            BR[sublist[0]] = []
     return num_vars, clauses, BF, BR, Q
 
 
@@ -87,7 +92,7 @@ def horn_sat(BF, BR, Q):
 
 print('Inicializacion')
 
-file_path = "input4.dimacs"  
+file_path = "benchmark_matrix.cnf"  
 num_vars, clauses, BF, BR, Q = read_dimacs(file_path)
 yes = 0
 print('clausulas: ', clauses)
