@@ -22,6 +22,15 @@ def read_dimacs(file_path):
                         clauses.append(clause)
 
 
+   
+
+    for i in BF:
+        for j, c in enumerate(clauses):
+            if i == c[0]:
+                print('Clausulas que se deducen de una: ', clauses[j])
+                clauses.remove(c)
+        
+
     BR = {} 
     for i, sublist in enumerate(clauses):
         print(sublist)
@@ -32,12 +41,12 @@ def read_dimacs(file_path):
                     BR[clave] = [i]
                 else:
                     BR[clave].append(i)
-    
+
 
     for i in BF:
         if i not in BR:
-            print(i)
-            BR[i] = []
+            print(i)   
+            BR[i] = [] 
 
     for i, sublist in enumerate(clauses):
         if sublist[0] not in BR:
@@ -54,12 +63,6 @@ def horn_sat(BF, BR, Q):
         print('p = ', p)
         print('Base de Hechos: ', BF)
         print('Ciclo p e Body')
-
-        #while p not in BR:
-        #    print('La literal no aplica: ', p)
-        #    p = BF.pop(0)
-        #    print('Nueva p: ', p)
-
         for lp in BR[p]:
             print('indice: ', lp)
             head = clauses[lp][0]
@@ -100,6 +103,6 @@ print('Base de Hechos: ', BF)
 print('Base de Reglas: ', BR)
 print('Query: ', Q)
 if horn_sat(BF, BR, Q):
-    print("La fórmula no essatisfacible.")
+    print("La fórmula no es satisfacible.")
 else:
     print("La fórmula es satisfacible.")

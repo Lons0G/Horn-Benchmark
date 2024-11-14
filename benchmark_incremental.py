@@ -15,7 +15,7 @@ def generar_benchamark_incremental(n, output):
 
     sys.stdout = sys.__stdout__
 
-n = 5 
+n = 10 
 generar_benchamark_incremental(n, 'benchmark_incremental.cnf')
 
 #archivo = open("mi_archivo.cnf", "w")
