@@ -16,8 +16,8 @@ def generar_benchamark_incremental(n, m, output):
             sum += 1
     sys.stdout = sys.__stdout__
 
-n = 5
-m = 5
+n = 100 
+m = 100
 generar_benchamark_incremental(n, m, 'benchmark_matrix.cnf')
 
 #archivo = open("mi_archivo.cnf", "w")
