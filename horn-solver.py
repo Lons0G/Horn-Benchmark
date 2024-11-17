@@ -99,11 +99,6 @@ def horn_sat(BF, BR, Q):
 
 file_path = "benchmark_matrix.cnf"  
 num_vars, clauses, BF, BR, Q = read_dimacs(file_path)
-yes = 0
-#print('clausulas: ', clauses)
-#print('Base de Hechos: ', BF)
-#print('Base de Reglas: ', BR)
-#print('Query: ', Q)
 
 i = 0
 sum = 0
@@ -111,10 +106,10 @@ sat = 0
 while i < 100000:
     start_time = time.time()
     if horn_sat(BF, BR, Q):
-        sat += 1
+        sat = 1
         #print("La fórmula no es satisfacible.")
     else:
-        sat += 0
+        sat = 0
         #print("La fórmula es satisfacible.")
     end_time = time.time()
     sum += end_time - start_time
