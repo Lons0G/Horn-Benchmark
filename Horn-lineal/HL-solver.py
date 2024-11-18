@@ -53,11 +53,22 @@ def read_dimacs(file_path):
     for i, sublist in enumerate(clauses):
         if sublist[0] not in BR:
             BR[sublist[0]] = []
-    return num_vars, clauses, BF, BR, Q
+
+    Counter_BR = []
+    for clave, lista in BR.items():
+        #print(f"La clave '{clave}' contiene los siguientes elementos:")
+        count = 0
+        for elemento in lista:
+            count += 1
+            print('indice de la BR : ', clave, end = ' ')
+            print('cantidad de elementos: ', count)
+        Counter_BR.append(count)
+
+    return num_vars, clauses, BF, BR, Counter_BR, Q
 
 
 
-def horn_sat(BF, BR, Q):
+def horn_sat(BF, BR, Counter_BR, Q):
     #print('Ciclo BF != 0')
     while BF != []:
         #print('-------------------')
@@ -66,27 +77,31 @@ def horn_sat(BF, BR, Q):
         #print('Base de Hechos: ', BF)
         #print('Ciclo p e Body')
         for lp in BR[p]:
-            #print('indice: ', lp)
+            print('indice: ', lp)
             head = clauses[lp][0]
             body = clauses[lp][1:]
             #print('head: ', head)
             #print('body: ', body)
             #print('body antes: ', body)
             #print('regla antes: ', clauses[lp])
+
+            Counter_BR[lp] -= 1 
+
             clauses[lp].remove(-p)
             body.remove(-p)
             #print('body despues: ', body)
             #print('regla despues: ', clauses[lp])
-            #print('body despues: ', body)
-            if body == []:
-                #print('Clausula vacia')
-                #print('head: {} es Q: {}?'.format(head, abs(Q[0]))) 
+            print('body despues: ', body)
+            if Counter_BR[lp] <= 0 : #body == []:
+                print('Clausula vacia')
+                print('head: {} es Q: {}?'.format(head, abs(Q[0]))) 
+                print('Contador: ', Counter_BR)
                 if head == abs(Q[0]):
                     return 1
                 clauses[lp] = []
                 BF.append(head)
             #print('BF actualizada: ', BF)
-            
+            print(Counter_BR) 
 
             #print('Clausulas: ', clauses)
             #print('Base de Reglas : ', BR)
@@ -147,33 +162,45 @@ def horn_sat(BF, BR, Q):
         #    ]
         #
 
-benchmarks = [
-    'benchmark_matrix_75_Q.cnf', 
-    'benchmark_matrix_100_Q.cnf', 
-    'benchmark_matrix_250_Q.cnf',
-    'benchmark_matrix_500_Q.cnf',
-    'benchmark_matrix_750_Q.cnf', 
-    'benchmark_matrix_1000_Q.cnf', 
-    'benchmark_matrix_1500_Q.cnf', 
-    'benchmark_matrix_1750_Q.cnf', 
-    'benchmark_matrix_2000_Q.cnf', 
-    'benchmark_matrix_2500_Q.cnf' 
-]
+    #benchmarks = [
+    #    'benchmark_matrix_75_Q.cnf', 
+    #    'benchmark_matrix_100_Q.cnf', 
+    #    'benchmark_matrix_250_Q.cnf',
+    #    'benchmark_matrix_500_Q.cnf',
+    #    'benchmark_matrix_750_Q.cnf', 
+    #    'benchmark_matrix_1000_Q.cnf', 
+    #    'benchmark_matrix_1500_Q.cnf', 
+    #    'benchmark_matrix_1750_Q.cnf', 
+    #    'benchmark_matrix_2000_Q.cnf', 
+    #    'benchmark_matrix_2500_Q.cnf' 
+    #]
 
+
+
+benchmarks = ['../input4.dimacs']
 
 for input in benchmarks:
-    tiempos = []
+    #tiempos = []
     file_path = input  
-    num_vars, clauses, BF, BR, Q = read_dimacs(file_path)
-    i = 0
+    num_vars, clauses, BF, BR, Counter_BR, Q = read_dimacs(file_path)
+    
+    print('Base de hechos: ', BF)
+    print('Base de reglas: ', BR)
+    print('Todas las clausulas: ', clauses)
+    print('Contador base de reglas: ', Counter_BR)
+
+    i = 99 
     sat = 0
     while i < 100:
-        start_time = time.time()
-        horn_sat(BF, BR, Q)
-        end_time = time.time()
-        tiempos.append(end_time - start_time)
+        #start_time = time.time()
+        if horn_sat(BF, BR, Counter_BR, Q):
+            print('No sastifactible')
+        else:
+            print('Sastifactible')
+        #end_time = time.time()
+        #tiempos.append(end_time - start_time)
         i += 1
-    tiempo = sum(tiempos) / len(tiempos)
-    print(input + ' : ' + str(tiempo))
+    #tiempo = sum(tiempos) / len(tiempos)
+    #print(input + ' : ' + str(tiempo))
 
 
