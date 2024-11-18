@@ -85,7 +85,7 @@ def horn_sat(BF, BR, Q):
                     return 1
                 clauses[lp] = []
                 BF.append(head)
-                #print('BF actualizada: ', BF)
+            #print('BF actualizada: ', BF)
             
 
             #print('Clausulas: ', clauses)
@@ -95,24 +95,85 @@ def horn_sat(BF, BR, Q):
 
 
 
-#print('Inicializacion')
+#benchmarks = [
+#'benchmark_matrix_75_50.cnf', 
+#'benchmark_matrix_100_50.cnf', 
+#'benchmark_matrix_250_50.cnf',
+#'benchmark_matrix_500_50.cnf',
+#'benchmark_matrix_750_50.cnf', 
+#'benchmark_matrix_1000_50.cnf', 
+#'benchmark_matrix_1500_50.cnf', 
+#'benchmark_matrix_1750_50.cnf', 
+#'benchmark_matrix_2000_50.cnf', 
+#'benchmark_matrix_2500_50.cnf' 
+#]
+    #benchmarks = [
+    #    'benchmark_matrix_75_75.cnf', 
+    #    'benchmark_matrix_100_100.cnf', 
+    #    'benchmark_matrix_250_250.cnf',
+    #    'benchmark_matrix_500_500.cnf',
+    #    'benchmark_matrix_750_750.cnf', 
+    #    'benchmark_matrix_1000_1000.cnf', 
+    #    'benchmark_matrix_1500_1500.cnf', 
+    #    'benchmark_matrix_1750_1750.cnf', 
+    #    'benchmark_matrix_2000_2000.cnf', 
+    #    'benchmark_matrix_2500_2500.cnf' 
+    #]
 
-file_path = "benchmark_matrix.cnf"  
-num_vars, clauses, BF, BR, Q = read_dimacs(file_path)
 
-i = 0
-sum = 0
-sat = 0
-while i < 100000:
-    start_time = time.time()
-    if horn_sat(BF, BR, Q):
-        sat = 1
-        #print("La fórmula no es satisfacible.")
-    else:
-        sat = 0
-        #print("La fórmula es satisfacible.")
-    end_time = time.time()
-    sum += end_time - start_time
-    i += 1
+        #benchmarks = [
+        #        'benchmark_inc_75.cnf', 
+        #        'benchmark_inc_100.cnf', 
+        #        'benchmark_inc_250.cnf',
+        #        'benchmark_inc_500.cnf',
+        #        'benchmark_inc_750.cnf', 
+        #        'benchmark_inc_1000.cnf', 
+        #        'benchmark_inc_1500.cnf', 
+        #        'benchmark_inc_1750.cnf', 
+        #        'benchmark_inc_2000.cnf', 
+        #        'benchmark_inc_2500.cnf' 
+        #    ]
+        #benchmarks = [
+        #        'benchmark_inc_75Q_.cnf', 
+        #        'benchmark_inc_100Q_.cnf', 
+        #        'benchmark_inc_250Q_.cnf',
+        #        'benchmark_inc_500Q_.cnf',
+        #        'benchmark_inc_750Q_.cnf', 
+        #        'benchmark_inc_1000Q_.cnf', 
+        #        'benchmark_inc_1500Q_.cnf', 
+        #        'benchmark_inc_1750Q_.cnf', 
+        #        'benchmark_inc_2000Q_.cnf', 
+        #        'benchmark_inc_2500Q_.cnf' 
+        #    ]
+        #
 
-print(sum)
+benchmarks = [
+    'benchmark_matrix_75_Q.cnf', 
+    'benchmark_matrix_100_Q.cnf', 
+    'benchmark_matrix_250_Q.cnf',
+    'benchmark_matrix_500_Q.cnf',
+    'benchmark_matrix_750_Q.cnf', 
+    'benchmark_matrix_1000_Q.cnf', 
+    'benchmark_matrix_1500_Q.cnf', 
+    'benchmark_matrix_1750_Q.cnf', 
+    'benchmark_matrix_2000_Q.cnf', 
+    'benchmark_matrix_2500_Q.cnf' 
+]
+
+
+for input in benchmarks:
+    tiempos = []
+    file_path = input  
+    num_vars, clauses, BF, BR, Q = read_dimacs(file_path)
+    i = 0
+    sat = 0
+    while i < 100:
+        start_time = time.time()
+        horn_sat(BF, BR, Q)
+        end_time = time.time()
+        tiempos.append(end_time - start_time)
+        i += 1
+    tiempo = sum(tiempos) / len(tiempos)
+    print(input + ' : ' + str(tiempo))
+
+

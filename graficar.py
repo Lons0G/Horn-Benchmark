@@ -26,5 +26,5 @@ def graficar_multiples_lineas_archivos(archivos):
     plt.show()
 
 # Ejemplo de uso:
-archivos_csv = ["datos1.csv", "datos2.csv", "datos3.csv"]
+archivos_csv = ["sim_matrix_q.txt"]
 graficar_multiples_lineas_archivos(archivos_csv)
