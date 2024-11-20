@@ -147,20 +147,31 @@ def horn_sat(BF, BR, Q):
         #    ]
         #
 
+#benchmarks = [
+#    'benchmark_matrix_75_Q.cnf', 
+#    'benchmark_matrix_100_Q.cnf', 
+#    'benchmark_matrix_250_Q.cnf',
+#    'benchmark_matrix_500_Q.cnf',
+#    'benchmark_matrix_750_Q.cnf', 
+#    'benchmark_matrix_1000_Q.cnf', 
+#    'benchmark_matrix_1500_Q.cnf', 
+#    'benchmark_matrix_1750_Q.cnf', 
+#    'benchmark_matrix_2000_Q.cnf', 
+#    'benchmark_matrix_2500_Q.cnf' 
+#]
+
 benchmarks = [
-    'benchmark_matrix_75_Q.cnf', 
-    'benchmark_matrix_100_Q.cnf', 
-    'benchmark_matrix_250_Q.cnf',
-    'benchmark_matrix_500_Q.cnf',
-    'benchmark_matrix_750_Q.cnf', 
-    'benchmark_matrix_1000_Q.cnf', 
-    'benchmark_matrix_1500_Q.cnf', 
-    'benchmark_matrix_1750_Q.cnf', 
-    'benchmark_matrix_2000_Q.cnf', 
-    'benchmark_matrix_2500_Q.cnf' 
+    'Benchmarks/benchmark_matrix_75_75.cnf', 
+    'Benchmarks/benchmark_matrix_100_100.cnf', 
+    'Benchmarks/benchmark_matrix_250_250.cnf',
+    'Benchmarks/benchmark_matrix_500_500.cnf',
+    'Benchmarks/benchmark_matrix_750_750.cnf', 
+    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
+    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
+    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
+    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
+    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
 ]
-
-
 for input in benchmarks:
     tiempos = []
     file_path = input  
