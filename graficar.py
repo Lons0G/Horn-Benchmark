@@ -20,7 +20,7 @@ def graficar_multiples_lineas_archivos(archivos, labels):
         lineas_datos= []
         iter += 1
 
-    plt.xlabel('Tamaño N (Cuando Q es la misma)')
+    plt.xlabel('Tamaño N')
     plt.ylabel('Tiempo en segundos')
     plt.title('Gráfica de múltiples líneas')
     plt.legend(label_legends)  # Agregar leyenda si es necesario
@@ -28,6 +28,6 @@ def graficar_multiples_lineas_archivos(archivos, labels):
     plt.show()
 
 # Ejemplo de uso:
-archivos_csv = ["simulaciones/sim_incremental_Q.txt", "simulaciones/sim_incremental_Q_lineal.txt"]
+archivos_csv = ["simulaciones/sim_completo.txt", "simulaciones/sim_completo_lineal.txt"]
 labels = ["Algoritmo Cuadratico", "Algoritmo Lineal"]
 graficar_multiples_lineas_archivos(archivos_csv, labels)

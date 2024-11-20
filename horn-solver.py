@@ -58,6 +58,7 @@ def read_dimacs(file_path):
 
 
 def horn_sat(BF, BR, Q):
+    Bfn = BF 
     #print('Ciclo BF != 0')
     while BF != []:
         #print('-------------------')
@@ -84,7 +85,10 @@ def horn_sat(BF, BR, Q):
                 if head == abs(Q[0]):
                     return 1
                 clauses[lp] = []
-                BF.append(head)
+                if head not in Bfn:
+                    BF.append(head)
+                    BF = list(set(BF))
+            #print('que pedo porque sigu')
             #print('BF actualizada: ', BF)
             
 
@@ -161,30 +165,35 @@ def horn_sat(BF, BR, Q):
 #]
 
 benchmarks = [
-    'Benchmarks/benchmark_matrix_75_75.cnf', 
-    'Benchmarks/benchmark_matrix_100_100.cnf', 
-    'Benchmarks/benchmark_matrix_250_250.cnf',
-    'Benchmarks/benchmark_matrix_500_500.cnf',
-    'Benchmarks/benchmark_matrix_750_750.cnf', 
-    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
-    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
-    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
-    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
-    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
+    'Benchmarks/benchmark_completo_n75_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n100_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n250_Qvar.cnf',
+    'Benchmarks/benchmark_completo_n500_Qvar.cnf',
+    'Benchmarks/benchmark_completo_n750_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n1000_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n1500_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n1750_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n2000_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n2500_Qvar.cnf' 
 ]
+
+print('Benchmark incremental, Q constante')
+iter = 0
+test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
 for input in benchmarks:
     tiempos = []
     file_path = input  
     num_vars, clauses, BF, BR, Q = read_dimacs(file_path)
-    i = 0
+    i = 99
     sat = 0
     while i < 100:
-        start_time = time.time()
+        start_time = time.perf_counter() #time.time()
         horn_sat(BF, BR, Q)
-        end_time = time.time()
+        end_time = time.perf_counter() #time.time()
         tiempos.append(end_time - start_time)
         i += 1
     tiempo = sum(tiempos) / len(tiempos)
-    print(input + ' : ' + str(tiempo))
+    print(str(test[iter]) + ',' + str(tiempo))
+    iter += 1
 
 

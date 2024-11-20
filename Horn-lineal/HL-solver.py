@@ -79,18 +79,20 @@ def horn_sat(BF, BR, Counter_BR, Q):
         for lp in BR[p]:
             #print('indice: ', lp)
             head = clauses[lp][0]
-            #body = clauses[lp][1:]
+            body = clauses[lp][1:]
             #print('head: ', head)
             #print('body: ', body)
             #print('body antes: ', body)
             #print('regla antes: ', clauses[lp])
 
-            Counter_BR[lp] -= 1 
-
+            #Counter_BR[lp] -= 1 
+            clauses[lp].pop() 
+            body.pop()
             #print('body despues: ', body)
             #print('regla despues: ', clauses[lp])
             #print('body despues: ', body)
-            if Counter_BR[lp] <= 0 : #body == []:
+            #if Counter_BR[lp] <= 0 or body == []: #body == []:
+            if body == []: #body == []:
                 #print('Clausula vacia')
                 #print('head: {} es Q: {}?'.format(head, abs(Q[0]))) 
                 #print('Contador: ', Counter_BR)
@@ -98,8 +100,8 @@ def horn_sat(BF, BR, Counter_BR, Q):
                     return 1
                 clauses[lp] = []
                 BF.append(head)
+                BF = list(set(BF))
             #print('BF actualizada: ', BF)
-            #print(Counter_BR) 
 
             #print('Clausulas: ', clauses)
             #print('Base de Reglas : ', BR)
@@ -146,18 +148,18 @@ def horn_sat(BF, BR, Counter_BR, Q):
     #    'Benchmarks/benchmark_inc_2000.cnf', 
     #    'Benchmarks/benchmark_inc_2500.cnf' 
     #    ]
-benchmarks = [
-    'Benchmarks/benchmark_inc_75Q_.cnf', 
-    'Benchmarks/benchmark_inc_100Q_.cnf', 
-    'Benchmarks/benchmark_inc_250Q_.cnf',
-    'Benchmarks/benchmark_inc_500Q_.cnf',
-    'Benchmarks/benchmark_inc_750Q_.cnf', 
-    'Benchmarks/benchmark_inc_1000Q_.cnf', 
-    'Benchmarks/benchmark_inc_1500Q_.cnf', 
-    'Benchmarks/benchmark_inc_1750Q_.cnf', 
-    'Benchmarks/benchmark_inc_2000Q_.cnf', 
-    'Benchmarks/benchmark_inc_2500Q_.cnf' 
-]
+#benchmarks = [
+#    'Benchmarks/benchmark_inc_75Q_.cnf', 
+#    'Benchmarks/benchmark_inc_100Q_.cnf', 
+#    'Benchmarks/benchmark_inc_250Q_.cnf',
+#    'Benchmarks/benchmark_inc_500Q_.cnf',
+#    'Benchmarks/benchmark_inc_750Q_.cnf', 
+#    'Benchmarks/benchmark_inc_1000Q_.cnf', 
+#    'Benchmarks/benchmark_inc_1500Q_.cnf', 
+#    'Benchmarks/benchmark_inc_1750Q_.cnf', 
+#    'Benchmarks/benchmark_inc_2000Q_.cnf', 
+#    'Benchmarks/benchmark_inc_2500Q_.cnf' 
+#]
         #
 
     #benchmarks = [
@@ -173,41 +175,27 @@ benchmarks = [
     #    'Benchmarks/benchmark_matrix_2500_Q.cnf' 
     #]
 
+benchmarks = [
+    'Benchmarks/benchmark_completo_n75_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n100_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n250_Qvar.cnf',
+    'Benchmarks/benchmark_completo_n500_Qvar.cnf',
+    'Benchmarks/benchmark_completo_n750_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n1000_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n1500_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n1750_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n2000_Qvar.cnf', 
+    'Benchmarks/benchmark_completo_n2500_Qvar.cnf' 
+]
 
-
-#benchmarks = ['../input4.dimacs']
-
-#for input in benchmarks:
-#    tiempos = []
-#    file_path = input  
-#    num_vars, clauses, BF, BR, Counter_BR, Q = read_dimacs(file_path)
-#    
-#    #print('Base de hechos: ', BF)
-#    #print('Base de reglas: ', BR)
-#    #print('Todas las clausulas: ', clauses)
-#    #print('Contador base de reglas: ', Counter_BR)
-#
-#    i = 99 
-#    sat = 0
-#    while i < 100:
-#        start_time = time.time()
-#        horn_sat(BF, BR, Counter_BR, Q)
-#        end_time = time.time()
-#        tiempos.append(end_time - start_time)
-#        i += 1
-#    tiempo = sum(tiempos) / len(tiempos)
-#    print(input + ' : ' + str(tiempo))
-
-
-
-print('Benchmark incremental, Q constante')
+print('Benchmark completo, Q constante')
 iter = 0
 test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
 for input in benchmarks:
     tiempos = []
     file_path = input  
     num_vars, clauses, BF, BR, Counter_BR, Q = read_dimacs(file_path)
-    i = 0
+    i = 99
     sat = 0
     while i < 100:
         #start_time = time.time()
