@@ -60,8 +60,8 @@ def read_dimacs(file_path):
         count = 0
         for elemento in lista:
             count += 1
-            print('indice de la BR : ', clave, end = ' ')
-            print('cantidad de elementos: ', count)
+            #print('indice de la BR : ', clave, end = ' ')
+            #print('cantidad de elementos: ', count)
         Counter_BR.append(count)
 
     return num_vars, clauses, BF, BR, Counter_BR, Q
@@ -77,9 +77,9 @@ def horn_sat(BF, BR, Counter_BR, Q):
         #print('Base de Hechos: ', BF)
         #print('Ciclo p e Body')
         for lp in BR[p]:
-            print('indice: ', lp)
+            #print('indice: ', lp)
             head = clauses[lp][0]
-            body = clauses[lp][1:]
+            #body = clauses[lp][1:]
             #print('head: ', head)
             #print('body: ', body)
             #print('body antes: ', body)
@@ -87,21 +87,19 @@ def horn_sat(BF, BR, Counter_BR, Q):
 
             Counter_BR[lp] -= 1 
 
-            clauses[lp].remove(-p)
-            body.remove(-p)
             #print('body despues: ', body)
             #print('regla despues: ', clauses[lp])
-            print('body despues: ', body)
+            #print('body despues: ', body)
             if Counter_BR[lp] <= 0 : #body == []:
-                print('Clausula vacia')
-                print('head: {} es Q: {}?'.format(head, abs(Q[0]))) 
-                print('Contador: ', Counter_BR)
+                #print('Clausula vacia')
+                #print('head: {} es Q: {}?'.format(head, abs(Q[0]))) 
+                #print('Contador: ', Counter_BR)
                 if head == abs(Q[0]):
                     return 1
                 clauses[lp] = []
                 BF.append(head)
             #print('BF actualizada: ', BF)
-            print(Counter_BR) 
+            #print(Counter_BR) 
 
             #print('Clausulas: ', clauses)
             #print('Base de Reglas : ', BR)
@@ -111,96 +109,116 @@ def horn_sat(BF, BR, Counter_BR, Q):
 
 
 #benchmarks = [
-#'benchmark_matrix_75_50.cnf', 
-#'benchmark_matrix_100_50.cnf', 
-#'benchmark_matrix_250_50.cnf',
-#'benchmark_matrix_500_50.cnf',
-#'benchmark_matrix_750_50.cnf', 
-#'benchmark_matrix_1000_50.cnf', 
-#'benchmark_matrix_1500_50.cnf', 
-#'benchmark_matrix_1750_50.cnf', 
-#'benchmark_matrix_2000_50.cnf', 
-#'benchmark_matrix_2500_50.cnf' 
+#'Benchmarks/benchmark_matrix_75_50.cnf', 
+#'Benchmarks/benchmark_matrix_100_50.cnf', 
+#'Benchmarks/benchmark_matrix_250_50.cnf',
+#'Benchmarks/benchmark_matrix_500_50.cnf',
+#'Benchmarks/benchmark_matrix_750_50.cnf', 
+#'Benchmarks/benchmark_matrix_1000_50.cnf', 
+#'Benchmarks/benchmark_matrix_1500_50.cnf', 
+#'Benchmarks/benchmark_matrix_1750_50.cnf', 
+#'Benchmarks/benchmark_matrix_2000_50.cnf', 
+#'Benchmarks/benchmark_matrix_2500_50.cnf' 
 #]
     #benchmarks = [
-    #    'benchmark_matrix_75_75.cnf', 
-    #    'benchmark_matrix_100_100.cnf', 
-    #    'benchmark_matrix_250_250.cnf',
-    #    'benchmark_matrix_500_500.cnf',
-    #    'benchmark_matrix_750_750.cnf', 
-    #    'benchmark_matrix_1000_1000.cnf', 
-    #    'benchmark_matrix_1500_1500.cnf', 
-    #    'benchmark_matrix_1750_1750.cnf', 
-    #    'benchmark_matrix_2000_2000.cnf', 
-    #    'benchmark_matrix_2500_2500.cnf' 
+    #    'Benchmarks/benchmark_matrix_75_75.cnf', 
+    #    'Benchmarks/benchmark_matrix_100_100.cnf', 
+    #    'Benchmarks/benchmark_matrix_250_250.cnf',
+    #    'Benchmarks/benchmark_matrix_500_500.cnf',
+    #    'Benchmarks/benchmark_matrix_750_750.cnf', 
+    #    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
+    #    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
+    #    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
+    #    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
+    #    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
     #]
 
 
-        #benchmarks = [
-        #        'benchmark_inc_75.cnf', 
-        #        'benchmark_inc_100.cnf', 
-        #        'benchmark_inc_250.cnf',
-        #        'benchmark_inc_500.cnf',
-        #        'benchmark_inc_750.cnf', 
-        #        'benchmark_inc_1000.cnf', 
-        #        'benchmark_inc_1500.cnf', 
-        #        'benchmark_inc_1750.cnf', 
-        #        'benchmark_inc_2000.cnf', 
-        #        'benchmark_inc_2500.cnf' 
-        #    ]
-        #benchmarks = [
-        #        'benchmark_inc_75Q_.cnf', 
-        #        'benchmark_inc_100Q_.cnf', 
-        #        'benchmark_inc_250Q_.cnf',
-        #        'benchmark_inc_500Q_.cnf',
-        #        'benchmark_inc_750Q_.cnf', 
-        #        'benchmark_inc_1000Q_.cnf', 
-        #        'benchmark_inc_1500Q_.cnf', 
-        #        'benchmark_inc_1750Q_.cnf', 
-        #        'benchmark_inc_2000Q_.cnf', 
-        #        'benchmark_inc_2500Q_.cnf' 
-        #    ]
+    #benchmarks = [
+    #    'Benchmarks/benchmark_inc_75.cnf', 
+    #    'Benchmarks/benchmark_inc_100.cnf', 
+    #    'Benchmarks/benchmark_inc_250.cnf',
+    #    'Benchmarks/benchmark_inc_500.cnf',
+    #    'Benchmarks/benchmark_inc_750.cnf', 
+    #    'Benchmarks/benchmark_inc_1000.cnf', 
+    #    'Benchmarks/benchmark_inc_1500.cnf', 
+    #    'Benchmarks/benchmark_inc_1750.cnf', 
+    #    'Benchmarks/benchmark_inc_2000.cnf', 
+    #    'Benchmarks/benchmark_inc_2500.cnf' 
+    #    ]
+benchmarks = [
+    'Benchmarks/benchmark_inc_75Q_.cnf', 
+    'Benchmarks/benchmark_inc_100Q_.cnf', 
+    'Benchmarks/benchmark_inc_250Q_.cnf',
+    'Benchmarks/benchmark_inc_500Q_.cnf',
+    'Benchmarks/benchmark_inc_750Q_.cnf', 
+    'Benchmarks/benchmark_inc_1000Q_.cnf', 
+    'Benchmarks/benchmark_inc_1500Q_.cnf', 
+    'Benchmarks/benchmark_inc_1750Q_.cnf', 
+    'Benchmarks/benchmark_inc_2000Q_.cnf', 
+    'Benchmarks/benchmark_inc_2500Q_.cnf' 
+]
         #
 
     #benchmarks = [
-    #    'benchmark_matrix_75_Q.cnf', 
-    #    'benchmark_matrix_100_Q.cnf', 
-    #    'benchmark_matrix_250_Q.cnf',
-    #    'benchmark_matrix_500_Q.cnf',
-    #    'benchmark_matrix_750_Q.cnf', 
-    #    'benchmark_matrix_1000_Q.cnf', 
-    #    'benchmark_matrix_1500_Q.cnf', 
-    #    'benchmark_matrix_1750_Q.cnf', 
-    #    'benchmark_matrix_2000_Q.cnf', 
-    #    'benchmark_matrix_2500_Q.cnf' 
+    #    'Benchmarks/benchmark_matrix_75_Q.cnf', 
+    #    'Benchmarks/benchmark_matrix_100_Q.cnf', 
+    #    'Benchmarks/benchmark_matrix_250_Q.cnf',
+    #    'Benchmarks/benchmark_matrix_500_Q.cnf',
+    #    'Benchmarks/benchmark_matrix_750_Q.cnf', 
+    #    'Benchmarks/benchmark_matrix_1000_Q.cnf', 
+    #    'Benchmarks/benchmark_matrix_1500_Q.cnf', 
+    #    'Benchmarks/benchmark_matrix_1750_Q.cnf', 
+    #    'Benchmarks/benchmark_matrix_2000_Q.cnf', 
+    #    'Benchmarks/benchmark_matrix_2500_Q.cnf' 
     #]
 
 
 
-benchmarks = ['../input4.dimacs']
+#benchmarks = ['../input4.dimacs']
 
+#for input in benchmarks:
+#    tiempos = []
+#    file_path = input  
+#    num_vars, clauses, BF, BR, Counter_BR, Q = read_dimacs(file_path)
+#    
+#    #print('Base de hechos: ', BF)
+#    #print('Base de reglas: ', BR)
+#    #print('Todas las clausulas: ', clauses)
+#    #print('Contador base de reglas: ', Counter_BR)
+#
+#    i = 99 
+#    sat = 0
+#    while i < 100:
+#        start_time = time.time()
+#        horn_sat(BF, BR, Counter_BR, Q)
+#        end_time = time.time()
+#        tiempos.append(end_time - start_time)
+#        i += 1
+#    tiempo = sum(tiempos) / len(tiempos)
+#    print(input + ' : ' + str(tiempo))
+
+
+
+print('Benchmark incremental, Q constante')
+iter = 0
+test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
 for input in benchmarks:
-    #tiempos = []
+    tiempos = []
     file_path = input  
     num_vars, clauses, BF, BR, Counter_BR, Q = read_dimacs(file_path)
-    
-    print('Base de hechos: ', BF)
-    print('Base de reglas: ', BR)
-    print('Todas las clausulas: ', clauses)
-    print('Contador base de reglas: ', Counter_BR)
-
-    i = 99 
+    i = 0
     sat = 0
     while i < 100:
         #start_time = time.time()
-        if horn_sat(BF, BR, Counter_BR, Q):
-            print('No sastifactible')
-        else:
-            print('Sastifactible')
+        start_time = time.perf_counter()
+        horn_sat(BF, BR, Counter_BR, Q)
         #end_time = time.time()
-        #tiempos.append(end_time - start_time)
+        end_time = time.perf_counter()
+        tiempos.append(end_time - start_time)
         i += 1
-    #tiempo = sum(tiempos) / len(tiempos)
-    #print(input + ' : ' + str(tiempo))
+    tiempo = sum(tiempos) / len(tiempos)
+    print(str(test[iter]) + ',' + str(tiempo))
+    iter += 1
 
 
