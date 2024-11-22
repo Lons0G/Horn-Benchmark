@@ -22,12 +22,12 @@ def graficar_multiples_lineas_archivos(archivos, labels):
 
     plt.xlabel('Tamaño N')
     plt.ylabel('Tiempo en segundos')
-    plt.title('Gráfica de múltiples líneas')
+    plt.title('Benchmark completo (Comparativa con Q ultima y Q primera)')
     plt.legend(label_legends)  # Agregar leyenda si es necesario
 
     plt.show()
 
 # Ejemplo de uso:
-archivos_csv = ["simulaciones/sim_completo.txt", "simulaciones/sim_completo_lineal.txt"]
-labels = ["Algoritmo Cuadratico", "Algoritmo Lineal"]
+archivos_csv = ["simulaciones/sim_completo_ultima_q.txt", "simulaciones/sim_completo_primera_q.txt"]
+labels = ["Q ultima", "Q primera"]
 graficar_multiples_lineas_archivos(archivos_csv, labels)

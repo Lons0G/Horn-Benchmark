@@ -175,20 +175,32 @@ def horn_sat(BF, BR, Counter_BR, Q):
     #    'Benchmarks/benchmark_matrix_2500_Q.cnf' 
     #]
 
+    #benchmarks = [
+    #    'Benchmarks/benchmark_completo_n75_Qvar.cnf', 
+    #    'Benchmarks/benchmark_completo_n100_Qvar.cnf', 
+    #    'Benchmarks/benchmark_completo_n250_Qvar.cnf',
+    #    'Benchmarks/benchmark_completo_n500_Qvar.cnf',
+    #    'Benchmarks/benchmark_completo_n750_Qvar.cnf', 
+    #    'Benchmarks/benchmark_completo_n1000_Qvar.cnf', 
+    #    'Benchmarks/benchmark_completo_n1500_Qvar.cnf', 
+    #    'Benchmarks/benchmark_completo_n1750_Qvar.cnf', 
+    #    'Benchmarks/benchmark_completo_n2000_Qvar.cnf', 
+    #    'Benchmarks/benchmark_completo_n2500_Qvar.cnf' 
+    #]
 benchmarks = [
-    'Benchmarks/benchmark_completo_n75_Qvar.cnf', 
-    'Benchmarks/benchmark_completo_n100_Qvar.cnf', 
-    'Benchmarks/benchmark_completo_n250_Qvar.cnf',
-    'Benchmarks/benchmark_completo_n500_Qvar.cnf',
-    'Benchmarks/benchmark_completo_n750_Qvar.cnf', 
-    'Benchmarks/benchmark_completo_n1000_Qvar.cnf', 
-    'Benchmarks/benchmark_completo_n1500_Qvar.cnf', 
-    'Benchmarks/benchmark_completo_n1750_Qvar.cnf', 
-    'Benchmarks/benchmark_completo_n2000_Qvar.cnf', 
-    'Benchmarks/benchmark_completo_n2500_Qvar.cnf' 
+    'BF_ultimo_Q_primero/benchmark_completo_n75_Qvar.dimacs', 
+    'BF_ultimo_Q_primero/benchmark_completo_n100_Qvar.dimacs', 
+    'BF_ultimo_Q_primero/benchmark_completo_n250_Qvar.dimacs',
+    'BF_ultimo_Q_primero/benchmark_completo_n500_Qvar.dimacs',
+    'BF_ultimo_Q_primero/benchmark_completo_n750_Qvar.dimacs', 
+    'BF_ultimo_Q_primero/benchmark_completo_n1000_Qvar.dimacs', 
+    'BF_ultimo_Q_primero/benchmark_completo_n1500_Qvar.dimacs', 
+    'BF_ultimo_Q_primero/benchmark_completo_n1750_Qvar.dimacs', 
+    'BF_ultimo_Q_primero/benchmark_completo_n2000_Qvar.dimacs', 
+    'BF_ultimo_Q_primero/benchmark_completo_n2500_Qvar.dimacs' 
 ]
 
-print('Benchmark completo, Q constante')
+print('Benchmark completo, Ultima Query')
 iter = 0
 test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
 for input in benchmarks:
