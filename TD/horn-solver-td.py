@@ -67,6 +67,7 @@ def Base_literales(archivo):
 def Base_hechos(archivo):
     clauses = []
     BF = []
+    Q = 0
     with open(archivo, 'r') as archivo:
         for linea in archivo:
             linea = linea.strip()
@@ -79,9 +80,11 @@ def Base_hechos(archivo):
                 if clause: 
                     if len(clause) == 1 and clause[0] > 0:
                         BF.append(clause[-1])
+                    elif len(clause) == 1 and clause[0] < 0:
+                        Q = clause[0]
                     else:
                         clauses.append(clause)
-    return BF
+    return BF, Q
 
 def Base_reglas(archivo):
     base_reglas = {}
@@ -95,19 +98,24 @@ def Base_reglas(archivo):
                 # Ignorar el último 0
                 clause = list(map(int, linea.split()[:-1]))  
                 # Si la cláusula no esta vacia
-                if clause:  
+                if clause:
+                    if len(clause) == 1 and clause[0] > 0:
+                        continue
+                    elif len(clause) == 1 and clause[0] < 0:
+                        continue
+                    else:
                         clauses.append(clause)
     
     # VERIFICAR
-    BR = {} 
-    for i, sublist in enumerate(clauses):
-        for element in sublist:
-            if element < 0:
-                clave = abs(element)
-                if clave not in BR:
-                    BR[clave] = [i]
-                else:
-                    BR[clave].append(i)
+    #BR = {} 
+    #for i, sublist in enumerate(clauses):
+    #    for element in sublist:
+    #        if element < 0:
+    #            clave = abs(element)
+    #            if clave not in BR:
+    #                BR[clave] = [i]
+    #            else:
+    #                BR[clave].append(i)
 
     return clauses 
 
@@ -116,12 +124,76 @@ def read_dimacs(archivo):
     B_literales = Base_literales(archivo) 
     
     # Obtencion de la base de hechos
-    BF = Base_hechos(archivo)
+    BF, Q = Base_hechos(archivo)
     BR = Base_reglas(archivo)
-    return BF, BR, B_literales
+    return BF, BR, Q, B_literales
 
-BF, BR, B_literales = read_dimacs('input4.dimacs')
+
+def BTD(BF, BR, Q, BL):
+    
+    # Inicializando estructuras 
+    for p in BL:
+        state[str(p)] = 'UNEXPANDED'
+        rules_with_head[str(p)] = []
+    print("state")
+    print(state)
+    print("rules with head")
+    print(rules_with_head)
+   
+    for p in BF:
+        state[str(p)] = 'T' 
+    print("state")
+    print(state)
+    
+    for r, clause in enumerate(BR):
+        rules_with_head[str(clause[0])].append(r)
+        body[str(r)] = clause[1:]
+    
+    print("rules with head")
+    print(rules_with_head)
+    print("Body")
+    print(body)
+   
+
+    if state[str(Q)] == 'UNEXPANDED':
+        OR(Q)
+    elif state[str(Q)] == 'T':
+        return 1
+    else:
+        return 0 
+
+def OR(p):
+    print('Entro al OR') 
+    state[p] = 'EXPANDED'
+    for r in rules_with_head[str(p)]:
+        #print(r)
+        state[p] = AND(r)
+        if state[p] == 'T':
+            return 
+    return
+
+def AND(r):
+    for p in body[str(r)]:
+        if state[str(abs(p))] == 'UNEXPANDED':
+            #print(str(abs(p)))
+            OR(abs(p))
+        if state[str(abs(p))] != 'T':
+            return 'F'
+    
+    return 'T'
+
+state = {} 
+rules_with_head = {}
+body = {}
+
+BF, BR, Q, B_literales = read_dimacs('input4.dimacs')
 print('Base de hechos: ',BF)
 print('Base de reglas: ',BR)
+print('Query: ',Q)
 print('Base de literales: ', B_literales)
+if BTD(BF, BR, abs(Q), B_literales):
+    print('YES')
+else:
+    print('NO')
+
 
