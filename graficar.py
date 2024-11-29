@@ -22,12 +22,12 @@ def graficar_multiples_lineas_archivos(archivos, labels):
 
     plt.xlabel('Tamaño N')
     plt.ylabel('Tiempo en segundos')
-    plt.title('Benchmark completo (Comparativa con Q ultima y Q primera)')
+    plt.title('Benchmark matriz (nxm)')
     plt.legend(label_legends)  # Agregar leyenda si es necesario
 
     plt.show()
 
 # Ejemplo de uso:
-archivos_csv = ["simulaciones/sim_completo_ultima_q.txt", "simulaciones/sim_completo_primera_q.txt"]
-labels = ["Q ultima", "Q primera"]
+archivos_csv = ["TD/simulaciones/sim_matriz_n_m_TD.txt"]
+labels = ["m es constante"]
 graficar_multiples_lineas_archivos(archivos_csv, labels)
