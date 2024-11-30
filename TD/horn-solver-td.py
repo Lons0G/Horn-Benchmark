@@ -1,5 +1,5 @@
 import time
-
+import sys
 def Base_literales(archivo):
     # Obtencion de las bases de literales
     literales = set()
@@ -155,18 +155,18 @@ def AND(r):
 #'Benchmarks/benchmark_matrix_2000_50.cnf', 
 #'Benchmarks/benchmark_matrix_2500_50.cnf' 
 #]
-benchmarks = [
-    'Benchmarks/benchmark_matrix_75_75.cnf', 
-    'Benchmarks/benchmark_matrix_100_100.cnf', 
-    'Benchmarks/benchmark_matrix_250_250.cnf',
-    'Benchmarks/benchmark_matrix_500_500.cnf',
-    'Benchmarks/benchmark_matrix_750_750.cnf', 
-    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
-    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
-    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
-    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
-    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
-]
+    #benchmarks = [
+    #    'Benchmarks/benchmark_matrix_75_75.cnf', 
+    #    'Benchmarks/benchmark_matrix_100_100.cnf', 
+    #    'Benchmarks/benchmark_matrix_250_250.cnf',
+    #    'Benchmarks/benchmark_matrix_500_500.cnf',
+    #    'Benchmarks/benchmark_matrix_750_750.cnf', 
+    #    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
+    #    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
+    #    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
+    #    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
+    #    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
+    #]
 
 
     #benchmarks = [
@@ -220,9 +220,14 @@ benchmarks = [
     #    'Benchmarks/benchmark_completo_n2000_Qvar.cnf', 
     #    'Benchmarks/benchmark_completo_n2500_Qvar.cnf' 
     #]
+
+sys.setrecursionlimit(5000)
+
 print('Benchmark matriz nxm')
-iter = 0
+iter = 3
 test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
+
+benchmarks = ['Benchmarks/benchmark_matrix_500_500.cnf']
 for input in benchmarks:
     tiempos = []
     file_path = input  
@@ -231,7 +236,7 @@ for input in benchmarks:
     rules_with_head = {}
     body = {}
     BF, BR, Q, B_literales = read_dimacs(input)
-    i = 0 
+    i = 99 
     sat = 0
     while i < 100:
         start_time = time.perf_counter() #time.time()
