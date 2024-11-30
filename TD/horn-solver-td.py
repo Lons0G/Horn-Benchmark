@@ -182,18 +182,18 @@ def AND(r):
     #    'Benchmarks/benchmark_inc_2000.cnf', 
     #    'Benchmarks/benchmark_inc_2500.cnf' 
     #]
-benchmarks = [
-    'Benchmarks/benchmark_inc_75Q_.cnf', 
-    'Benchmarks/benchmark_inc_100Q_.cnf', 
-    'Benchmarks/benchmark_inc_250Q_.cnf',
-    'Benchmarks/benchmark_inc_500Q_.cnf',
-    'Benchmarks/benchmark_inc_750Q_.cnf', 
-    'Benchmarks/benchmark_inc_1000Q_.cnf', 
-    'Benchmarks/benchmark_inc_1500Q_.cnf', 
-    'Benchmarks/benchmark_inc_1750Q_.cnf', 
-    'Benchmarks/benchmark_inc_2000Q_.cnf', 
-    'Benchmarks/benchmark_inc_2500Q_.cnf' 
-]
+    #benchmarks = [
+    #    'Benchmarks/benchmark_inc_75Q_.cnf', 
+    #    'Benchmarks/benchmark_inc_100Q_.cnf', 
+    #    'Benchmarks/benchmark_inc_250Q_.cnf',
+    #    'Benchmarks/benchmark_inc_500Q_.cnf',
+    #    'Benchmarks/benchmark_inc_750Q_.cnf', 
+    #    'Benchmarks/benchmark_inc_1000Q_.cnf', 
+    #    'Benchmarks/benchmark_inc_1500Q_.cnf', 
+    #    'Benchmarks/benchmark_inc_1750Q_.cnf', 
+    #    'Benchmarks/benchmark_inc_2000Q_.cnf', 
+    #    'Benchmarks/benchmark_inc_2500Q_.cnf' 
+    #]
         #
 
     #benchmarks = [
