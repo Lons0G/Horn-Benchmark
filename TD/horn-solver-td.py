@@ -1,5 +1,6 @@
 import time
 import sys
+
 def Base_literales(archivo):
     # Obtencion de las bases de literales
     literales = set()
@@ -110,7 +111,7 @@ def OR(p):
         state[str(p)] = AND(r)
         if state[str(p)] == 'T':
             #print('estado de p verdadero: ', abs(p))
-            #print('estado de p verdadero = ', state[p])
+            #print('estado de p verdadero = ', state[str(p)])
             #print('estado de Q verdadero: ', abs(Q))
             #print('estado de Q verdadero = ', state[str(abs(Q))])           
             #if abs(Q) == p:
@@ -156,7 +157,7 @@ def AND(r):
 #'Benchmarks/benchmark_matrix_2500_50.cnf' 
 #]
     #benchmarks = [
-    #    'Benchmarks/benchmark_matrix_75_75.cnf', 
+    #    'Benchmarks/benchmark_matrix_75_75.cnf',
     #    'Benchmarks/benchmark_matrix_100_100.cnf', 
     #    'Benchmarks/benchmark_matrix_250_250.cnf',
     #    'Benchmarks/benchmark_matrix_500_500.cnf',
@@ -181,18 +182,18 @@ def AND(r):
     #    'Benchmarks/benchmark_inc_2000.cnf', 
     #    'Benchmarks/benchmark_inc_2500.cnf' 
     #]
-#benchmarks = [
-#    'Benchmarks/benchmark_inc_75Q_.cnf', 
-#    'Benchmarks/benchmark_inc_100Q_.cnf', 
-#    'Benchmarks/benchmark_inc_250Q_.cnf',
-#    'Benchmarks/benchmark_inc_500Q_.cnf',
-#    'Benchmarks/benchmark_inc_750Q_.cnf', 
-#    'Benchmarks/benchmark_inc_1000Q_.cnf', 
-#    'Benchmarks/benchmark_inc_1500Q_.cnf', 
-#    'Benchmarks/benchmark_inc_1750Q_.cnf', 
-#    'Benchmarks/benchmark_inc_2000Q_.cnf', 
-#    'Benchmarks/benchmark_inc_2500Q_.cnf' 
-#]
+benchmarks = [
+    'Benchmarks/benchmark_inc_75Q_.cnf', 
+    'Benchmarks/benchmark_inc_100Q_.cnf', 
+    'Benchmarks/benchmark_inc_250Q_.cnf',
+    'Benchmarks/benchmark_inc_500Q_.cnf',
+    'Benchmarks/benchmark_inc_750Q_.cnf', 
+    'Benchmarks/benchmark_inc_1000Q_.cnf', 
+    'Benchmarks/benchmark_inc_1500Q_.cnf', 
+    'Benchmarks/benchmark_inc_1750Q_.cnf', 
+    'Benchmarks/benchmark_inc_2000Q_.cnf', 
+    'Benchmarks/benchmark_inc_2500Q_.cnf' 
+]
         #
 
     #benchmarks = [
@@ -221,22 +222,20 @@ def AND(r):
     #    'Benchmarks/benchmark_completo_n2500_Qvar.cnf' 
     #]
 
-sys.setrecursionlimit(5000)
+sys.setrecursionlimit(100000)
 
-print('Benchmark matriz nxm')
-iter = 3
+print('Benchmark incremental Q')
+iter = 0 
 test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
 
-benchmarks = ['Benchmarks/benchmark_matrix_500_500.cnf']
 for input in benchmarks:
     tiempos = []
     file_path = input  
-    
     state = {} 
     rules_with_head = {}
     body = {}
     BF, BR, Q, B_literales = read_dimacs(input)
-    i = 99 
+    i = 0 
     sat = 0
     while i < 100:
         start_time = time.perf_counter() #time.time()
