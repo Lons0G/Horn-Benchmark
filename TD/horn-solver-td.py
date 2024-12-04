@@ -72,35 +72,37 @@ def BTD(BF, BR, Q, BL):
     for p in BL:
         state[str(p)] = 'UNEXPANDED'
         rules_with_head[str(p)] = []
-    ##print("state")
-    ##print(state)
-    ##print("rules with head")
-    ##print(rules_with_head)
+    print("state")
+    print(state)
+    #print("rules with head")
+    #print(rules_with_head)
    
     for p in BF:
         state[str(p)] = 'T' 
-    ##print("state")
-    ##print(state)
+    print("state")
+    print(state)
     
     for r, clause in enumerate(BR):
         rules_with_head[str(clause[0])].append(r)
         body[str(r)] = clause[1:]
     
-    ##print("rules with head")
-    ##print(rules_with_head)
-    ##print("Body")
-    ##print(body)
+    #print("rules with head")
+    #print(rules_with_head)
+    #print("Body")
+    #print(body)
    
 
     if state[str(abs(Q))] == 'UNEXPANDED':
         OR(abs(Q))
-    ##print('Q es: ', state[abs(Q)])
-    ##print('estado de Q: ', state[str(abs(Q))])
+    #print('Q es: ', state[abs(Q)])
+    #print('estado de Q: ', state[str(abs(Q))])
     if state[str(abs(Q))] == 'T':
-        #print('estado verdadero: ', state[str(str(Q))])
+        print('estado verdadero: ', state[str(str(Q))])
+        print('Yes')
         return 1
     else:
-        #print('estado falso: ', state[str(abs(Q))])
+        print('estado falso: ', state[str(abs(Q))])
+        print('No')
         return 0 
 
 def OR(p):
@@ -222,12 +224,16 @@ def AND(r):
     #    'Benchmarks/benchmark_completo_n2500_Qvar.cnf' 
     #]
 
-sys.setrecursionlimit(100000)
-
-print('Benchmark incremental Q')
-iter = 0 
-test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
-
+input = 'input4.dimacs'
+#BF, BR, Q, B_literales = read_dimacs(input)
+#print(BR)
+benchmarks = [input]
+#sys.setrecursionlimit(100000)
+#
+#print('Benchmark incremental Q')
+#iter = 0 
+#test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
+#
 for input in benchmarks:
     tiempos = []
     file_path = input  
@@ -235,7 +241,7 @@ for input in benchmarks:
     rules_with_head = {}
     body = {}
     BF, BR, Q, B_literales = read_dimacs(input)
-    i = 0 
+    i = 99 
     sat = 0
     while i < 100:
         start_time = time.perf_counter() #time.time()
@@ -244,6 +250,7 @@ for input in benchmarks:
         tiempos.append(end_time - start_time)
         i += 1
     tiempo = sum(tiempos) / len(tiempos)
-    print(str(test[iter]) + ',' + str(tiempo))
-    iter += 1
+    #print(tiempo)
+    #print(str(test[iter]) + ',' + str(tiempo))
+    #iter += 1
 
