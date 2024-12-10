@@ -16,7 +16,7 @@ def graficar_multiples_lineas_archivos(archivos, labels):
 
         datos_array = np.array(lineas_datos)
         print(datos_array)
-        plt.plot(datos_array[:, 0], datos_array[:, 1])
+        plt.plot(datos_array[:, 0], datos_array[:, 1], marker='o')
         lineas_datos= []
         iter += 1
 
@@ -24,10 +24,43 @@ def graficar_multiples_lineas_archivos(archivos, labels):
     plt.ylabel('Tiempo en segundos')
     plt.title('Benchmark matriz (nxm)')
     plt.legend(label_legends)  # Agregar leyenda si es necesario
-
+    plt.grid(True)
     plt.show()
 
 # Ejemplo de uso:
 archivos_csv = ["TD/simulaciones/sim_matriz_n_m_TD.txt"]
 labels = ["m es constante"]
 graficar_multiples_lineas_archivos(archivos_csv, labels)
+
+#import matplotlib.pyplot as plt
+#
+## Datos de ejemplo (ajusta estos valores según tus datos reales)
+#tiempo = [0, 2, 4, 6, 8, 10]
+#gene1 = [0.3, 1.2, 1.3, 1.8, 1.6, 1.5]
+#gene2 = [2.1, 2.4, 2.3, 2.1, 2.2, 2.8]
+#gene3 = [0.3, 0.6, 1.1, 1.8, 2.2, 2.8]
+#
+## Crear la figura y los ejes
+#plt.figure(figsize=(8, 6))
+#
+## Plot de las líneas
+#plt.plot(tiempo, gene1, marker='o', color='red', label='gene 1')
+#plt.plot(tiempo, gene2, marker='o', color='blue', label='gene 2')
+#plt.plot(tiempo, gene3, marker='o', color='green', label='gene 3')
+#
+## Etiquetas de los ejes
+#plt.xlabel('time [hour]')
+#plt.ylabel('gene expression [log(TPM)]')
+#
+## Límites de los ejes
+#plt.xlim(0, 10)
+#plt.ylim(0, 3)
+#
+## Cuadrícula
+#plt.grid(True)
+#
+## Leyenda
+#plt.legend()
+#
+## Mostrar la gráfica
+#plt.show()

@@ -1,0 +1,4 @@
+-isystem
+--target=x86_64-w64-mingw64-gcc
+--target=x86_64-w64-mingw64-g++
+-IC:\\mingw64\\x86_64-w64-mingw32\\include
