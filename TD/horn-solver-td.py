@@ -72,15 +72,15 @@ def BTD(BF, BR, Q, BL):
     for p in BL:
         state[str(p)] = 'UNEXPANDED'
         rules_with_head[str(p)] = []
-    print("state")
-    print(state)
+    #print("state")
+    #print(state)
     #print("rules with head")
     #print(rules_with_head)
    
     for p in BF:
         state[str(p)] = 'T' 
-    print("state")
-    print(state)
+    #print("state")
+    #print(state)
     
     for r, clause in enumerate(BR):
         rules_with_head[str(clause[0])].append(r)
@@ -92,18 +92,23 @@ def BTD(BF, BR, Q, BL):
     #print(body)
    
 
+    start_time = time.perf_counter() #time.time()
     if state[str(abs(Q))] == 'UNEXPANDED':
         OR(abs(Q))
     #print('Q es: ', state[abs(Q)])
     #print('estado de Q: ', state[str(abs(Q))])
     if state[str(abs(Q))] == 'T':
-        print('estado verdadero: ', state[str(str(Q))])
-        print('Yes')
-        return 1
+        #print('estado verdadero: ', state[str(str(Q))])
+        #print('Yes')
+        end_time = time.perf_counter() #time.time()
+        tiempo = (end_time - start_time)
+        return 1, tiempo
     else:
-        print('estado falso: ', state[str(abs(Q))])
-        print('No')
-        return 0 
+        #print('estado falso: ', state[str(abs(Q))])
+        #print('No')
+        end_time = time.perf_counter() #time.time()
+        tiempo = (end_time - start_time)
+        return 0, tiempo 
 
 def OR(p):
     #print('Entro al OR') 
@@ -135,16 +140,6 @@ def AND(r):
     #print('retorno true') 
     return 'T'
 
-##print('Base de hechos: ',BF)
-##print('Base de reglas: ',BR)
-##print('Query: ',Q)
-##print('Base de literales: ', B_literales)
-#if BTD(BF, BR, abs(Q), B_literales):
-#    print('YES')
-#else:
-#    print('NO')
-#
-
 
 #benchmarks = [
 #'Benchmarks/benchmark_matrix_75_50.cnf', 
@@ -158,18 +153,18 @@ def AND(r):
 #'Benchmarks/benchmark_matrix_2000_50.cnf', 
 #'Benchmarks/benchmark_matrix_2500_50.cnf' 
 #]
-    #benchmarks = [
-    #    'Benchmarks/benchmark_matrix_75_75.cnf',
-    #    'Benchmarks/benchmark_matrix_100_100.cnf', 
-    #    'Benchmarks/benchmark_matrix_250_250.cnf',
-    #    'Benchmarks/benchmark_matrix_500_500.cnf',
-    #    'Benchmarks/benchmark_matrix_750_750.cnf', 
-    #    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
-    #    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
-    #    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
-    #    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
-    #    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
-    #]
+benchmarks = [
+    'Benchmarks/benchmark_matrix_75_75.cnf',
+    'Benchmarks/benchmark_matrix_100_100.cnf', 
+    'Benchmarks/benchmark_matrix_250_250.cnf',
+    'Benchmarks/benchmark_matrix_500_500.cnf',
+    'Benchmarks/benchmark_matrix_750_750.cnf', 
+    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
+    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
+    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
+    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
+    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
+]
 
 
     #benchmarks = [
@@ -224,16 +219,10 @@ def AND(r):
     #    'Benchmarks/benchmark_completo_n2500_Qvar.cnf' 
     #]
 
-input = 'input4.dimacs'
-#BF, BR, Q, B_literales = read_dimacs(input)
-#print(BR)
-benchmarks = [input]
-#sys.setrecursionlimit(100000)
-#
-#print('Benchmark incremental Q')
-#iter = 0 
-#test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
-#
+sys.setrecursionlimit(100000)
+print('Benchmark Matrinz NXM')
+iter = 0 
+test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
 for input in benchmarks:
     tiempos = []
     file_path = input  
@@ -241,16 +230,14 @@ for input in benchmarks:
     rules_with_head = {}
     body = {}
     BF, BR, Q, B_literales = read_dimacs(input)
-    i = 99 
+    i = 0 
     sat = 0
     while i < 100:
-        start_time = time.perf_counter() #time.time()
-        BTD(BF, BR, abs(Q), B_literales)
-        end_time = time.perf_counter() #time.time()
-        tiempos.append(end_time - start_time)
+        sat, tiempo = BTD(BF, BR, abs(Q), B_literales)
+        tiempos.append(tiempo)
         i += 1
-    tiempo = sum(tiempos) / len(tiempos)
-    #print(tiempo)
-    #print(str(test[iter]) + ',' + str(tiempo))
-    #iter += 1
+    tiempo_total = sum(tiempos) / len(tiempos)
+    #print(tiempo_total)
+    print(str(test[iter]) + ',' + str(tiempo_total))
+    iter += 1
 
