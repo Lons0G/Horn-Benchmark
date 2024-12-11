@@ -22,14 +22,14 @@ def graficar_multiples_lineas_archivos(archivos, labels):
 
     plt.xlabel('Tamaño N')
     plt.ylabel('Tiempo en segundos')
-    plt.title('Benchmark matriz (nxm)')
+    plt.title('Top Down vs Bottom Up - Benchmark incremental')
     plt.legend(label_legends)  # Agregar leyenda si es necesario
     plt.grid(True)
     plt.show()
 
 # Ejemplo de uso:
-archivos_csv = ["TD/simulaciones/sim_matriz_n_m_TD.txt"]
-labels = ["m es constante"]
+archivos_csv = ["TD/simulaciones/sim_incremental_TD.txt", "simulaciones/sim_incremental_n_lineal.txt"]
+labels = ["Top Down", "Bottom Up"]
 graficar_multiples_lineas_archivos(archivos_csv, labels)
 
 #import matplotlib.pyplot as plt

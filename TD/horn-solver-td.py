@@ -153,32 +153,32 @@ def AND(r):
 #'Benchmarks/benchmark_matrix_2000_50.cnf', 
 #'Benchmarks/benchmark_matrix_2500_50.cnf' 
 #]
-benchmarks = [
-    'Benchmarks/benchmark_matrix_75_75.cnf',
-    'Benchmarks/benchmark_matrix_100_100.cnf', 
-    'Benchmarks/benchmark_matrix_250_250.cnf',
-    'Benchmarks/benchmark_matrix_500_500.cnf',
-    'Benchmarks/benchmark_matrix_750_750.cnf', 
-    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
-    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
-    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
-    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
-    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
-]
-
-
     #benchmarks = [
-    #    'Benchmarks/benchmark_inc_75.cnf', 
-    #    'Benchmarks/benchmark_inc_100.cnf', 
-    #    'Benchmarks/benchmark_inc_250.cnf',
-    #    'Benchmarks/benchmark_inc_500.cnf',
-    #    'Benchmarks/benchmark_inc_750.cnf', 
-    #    'Benchmarks/benchmark_inc_1000.cnf', 
-    #    'Benchmarks/benchmark_inc_1500.cnf', 
-    #    'Benchmarks/benchmark_inc_1750.cnf', 
-    #    'Benchmarks/benchmark_inc_2000.cnf', 
-    #    'Benchmarks/benchmark_inc_2500.cnf' 
+    #    'Benchmarks/benchmark_matrix_75_75.cnf',
+    #    'Benchmarks/benchmark_matrix_100_100.cnf', 
+    #    'Benchmarks/benchmark_matrix_250_250.cnf',
+    #    'Benchmarks/benchmark_matrix_500_500.cnf',
+    #    'Benchmarks/benchmark_matrix_750_750.cnf', 
+    #    'Benchmarks/benchmark_matrix_1000_1000.cnf', 
+    #    'Benchmarks/benchmark_matrix_1500_1500.cnf', 
+    #    'Benchmarks/benchmark_matrix_1750_1750.cnf', 
+    #    'Benchmarks/benchmark_matrix_2000_2000.cnf', 
+    #    'Benchmarks/benchmark_matrix_2500_2500.cnf' 
     #]
+
+
+benchmarks = [
+    'Benchmarks/benchmark_inc_75.cnf', 
+    'Benchmarks/benchmark_inc_100.cnf', 
+    'Benchmarks/benchmark_inc_250.cnf',
+    'Benchmarks/benchmark_inc_500.cnf',
+    'Benchmarks/benchmark_inc_750.cnf', 
+    'Benchmarks/benchmark_inc_1000.cnf', 
+    'Benchmarks/benchmark_inc_1500.cnf', 
+    'Benchmarks/benchmark_inc_1750.cnf', 
+    'Benchmarks/benchmark_inc_2000.cnf', 
+    'Benchmarks/benchmark_inc_2500.cnf' 
+]
     #benchmarks = [
     #    'Benchmarks/benchmark_inc_75Q_.cnf', 
     #    'Benchmarks/benchmark_inc_100Q_.cnf', 
@@ -220,7 +220,7 @@ benchmarks = [
     #]
 
 sys.setrecursionlimit(100000)
-print('Benchmark Matrinz NXM')
+print('Benchmark Incremental')
 iter = 0 
 test = [75, 100, 250, 500, 750, 1000, 1500, 1750, 2000, 2500]
 for input in benchmarks:
