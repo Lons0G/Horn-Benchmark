@@ -92,23 +92,24 @@ def BTD(BF, BR, Q, BL):
     #print(body)
    
 
-    start_time = time.perf_counter() #time.time()
+    #start_time = time.perf_counter() #time.time()
     if state[str(abs(Q))] == 'UNEXPANDED':
-        OR(abs(Q))
+        print('OR')
+        #OR(abs(Q))
     #print('Q es: ', state[abs(Q)])
     #print('estado de Q: ', state[str(abs(Q))])
     if state[str(abs(Q))] == 'T':
         #print('estado verdadero: ', state[str(str(Q))])
         #print('Yes')
-        end_time = time.perf_counter() #time.time()
-        tiempo = (end_time - start_time)
-        return 1, tiempo
+        #end_time = time.perf_counter() #time.time()
+        #tiempo = (end_time - start_time)
+        return 1
     else:
         #print('estado falso: ', state[str(abs(Q))])
         #print('No')
-        end_time = time.perf_counter() #time.time()
-        tiempo = (end_time - start_time)
-        return 0, tiempo 
+        #end_time = time.perf_counter() #time.time()
+        #tiempo = (end_time - start_time)
+        return 0 
 
 def OR(p):
     #print('Entro al OR') 

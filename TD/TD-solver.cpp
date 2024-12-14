@@ -9,6 +9,13 @@
 
 using namespace std;
 
+// Funciones
+void OR(int p, map<int, string> &state,
+        unordered_map<int, vector<int>> &rules_with_head);
+
+string AND(int r, map<int, string> &state,
+           unordered_map<int, vector<int>> &rules_with_head);
+
 vector<int> extraer_literales(const string &archivo) {
   set<int> literales;
   ifstream input(archivo);
@@ -114,8 +121,8 @@ vector<vector<int>> Base_reglas(const string &archivo) {
 }
 
 // TOP DOWN BASIC
-void BTD(const vector<int> &BF, const vector<vector<int>> &BR, int &Q,
-         const vector<int> &BL) {
+int BTD(const vector<int> &BF, const vector<vector<int>> &BR, int &Q,
+        const vector<int> &BL) {
 
   cout << "Inicio de la funcion BTD" << endl;
 
@@ -128,42 +135,119 @@ void BTD(const vector<int> &BF, const vector<vector<int>> &BR, int &Q,
     rules_with_head[p] = {}; // Inicializar vector vacío
   }
 
-  cout << "state" << endl;
-  for (const auto &pair : state) {
-    cout << pair.first << ": " << pair.second << endl;
+  // cout << "state" << endl;
+  // for (const auto &pair : state) {
+  //   cout << pair.first << ": " << pair.second << endl;
+  // }
+
+  for (size_t r = 0; r < BR.size(); r++) {
+    const vector<int> &clause = BR[r];
+    rules_with_head[clause[0]].push_back(r);
+    // body[to_string(r)] = vector<int>(clause.begin() + 1, clause.end());
+  }
+
+  // cout << "Rules with head" << endl;
+  // for (const auto &pair : rules_with_head) {
+  //   cout << "Head: " << pair.first << ", Rules: ";
+  //   for (int rule : pair.second) {
+  //     cout << rule << " ";
+  //   }
+  //   cout << endl;
+  // }
+
+  if (state[Q] == "UNEXPANDED") {
+    // cout << "OR" << endl;
+    OR(Q, state, rules_with_head);
+  }
+  // cout << "Q es: " << state[abs(Q)] << endl;
+  // cout << "estado de Q: " << state[to_string(abs(Q))] << endl;
+  if (state[Q] == "T") {
+    // cout << "estado verdadero: " << state[to_string(to_string(Q))] <<
+    cout << "Yes" << endl;
+    // end_time = time.perf_counter(); // time.time()
+    // tiempo = (end_time - start_time)
+    return 1;
+  } else {
+    // cout << "estado falso: " << state[to_string(abs(Q))] << endl;
+    cout << "No" << endl;
+    // end_time = time.perf_counter(); // time.time()
+    // tiempo = (end_time - start_time)
+    return 0;
   }
 }
 
+// OR
+void OR(int p, map<int, string> &state,
+        unordered_map<int, vector<int>> &rules_with_head) {
+  // cout << "Entro al OR" << endl;
+  state[p] = "EXPANDED";
+  for (int r : rules_with_head[p]) {
+    // cout << "este es r: " << r << endl;
+    state[p] = AND(r, state, rules_with_head);
+    if (state[p] == "T") {
+      // cout << "estado de p verdadero: " << abs(p) << endl;
+      // cout << "estado de p verdadero = " << state[p] << endl;
+      // cout << "estado de Q verdadero: " << abs(Q) << endl;
+      // cout << "estado de Q verdadero = " << state[abs(Q)] << endl;
+      // if (abs(Q) == p) {
+      //     cout << "son iguales" << endl;
+      // }
+      return;
+    }
+  }
+  return;
+}
+
+// AND
+string AND(int r, map<int, string> &state,
+           unordered_map<int, vector<int>> &rules_with_head) {
+  for (int p : rules_with_head[r]) {
+    // cout << "estado de " << p << ": " << state[p] << endl;
+    if (state[p] == "UNEXPANDED") {
+      // cout << "p en el if unexpanded: " << p << endl;
+      // cout << "estado: " << rules_with_head[r] << endl;
+      // cout << p << endl;
+      OR(p, state, rules_with_head);
+    }
+    if (state[p] != "T" && state[p] != "EXPANDED") {
+      // cout << "retornara F: " << p << endl;
+      return "F";
+    }
+  }
+  // cout << "retorno true" << endl;
+  return "T";
+}
+
 int main() {
-  string archivo = "input4.dimacs";
+  string archivo = "benchmark_matrix_75_75.cnf";
 
   int Q = 0;
   vector<int> literales = extraer_literales(archivo);
   vector<int> BF = Base_Hechos_Q(archivo, Q);
   vector<vector<int>> BR = Base_reglas(archivo);
 
-  cout << "Literales encontradas: ";
-  for (int literal : literales) {
-    cout << literal << " ";
-  }
-  cout << endl;
+  // cout << "Literales encontradas: ";
+  // for (int literal : literales) {
+  //   cout << literal << " ";
+  // }
+  // cout << endl;
 
-  cout << "Base de hechos : [";
-  for (const auto &hecho : BF) {
-    cout << " " << hecho;
-  }
-  cout << " ]" << endl;
-  cout << "La query es: " << Q << endl;
+  // cout << "Base de hechos : [";
+  // for (const auto &hecho : BF) {
+  //   cout << " " << hecho;
+  // }
+  // cout << " ]" << endl;
+  // cout << "La query es: " << Q << endl;
 
-  cout << "Base de reglas: [ ";
-  for (vector<int> clausula : BR) {
-    cout << "[ ";
-    for (int literal : clausula) {
-      cout << literal << " ";
-    }
-    cout << "] ";
-  }
-  cout << " ]" << endl;
+  // cout << "Base de reglas: [ ";
+  // for (vector<int> clausula : BR) {
+  //   cout << "[ ";
+  //   for (int literal : clausula) {
+  //     cout << literal << " ";
+  //   }
+  //   cout << "] ";
+  // }
+  // cout << " ]" << endl;
 
   BTD(BF, BR, Q, literales);
 
